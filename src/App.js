@@ -2,9 +2,18 @@ import React, { Component } from "react";
 import "./App.css";
 
 class App extends Component {
-  msgStyle = {
-    fontSize: "24px",
+  msgStyle1 = {
+    fontSize: "24pt",
     color: "#900",
+    margin: "20px 0px",
+    padding: "5px",
+    borderBottom: "2px solid #900"
+  };
+
+  msgStyle2 = {
+    fontSize: "24pt",
+    color: "white",
+    backgroundColor: "#900",
     margin: "20px 0px",
     padding: "5px",
     borderBottom: "2px solid #900"
@@ -19,7 +28,8 @@ class App extends Component {
     super(props);
     this.state = {
       counter: 0,
-      msg: "Hello State."
+      msg: "Hello State.",
+      flg: true
     };
     setInterval(() => {
       this.setState(state => ({
@@ -32,7 +42,8 @@ class App extends Component {
   doAction(e) {
     this.setState(state => ({
       counter: state.counter + 1,
-      msg: "count: " + state.counter
+      msg: "count: " + state.counter,
+      flg: !state.flg
     }));
   }
 
@@ -40,8 +51,14 @@ class App extends Component {
     return (
       <div className="App">
         <h1>React</h1>
-        <p style={this.msgStyle}>{this.state.msg}</p>
-        <p style={this.msgStyle}>{this.props.msg}</p>
+        <p style={this.msg1Style}>{this.props.msg}</p>
+        <div>
+          {this.state.flg ? (
+            <p style={this.msgStyle1}>count: {this.state.msg}</p>
+          ) : (
+            <p style={this.msgStyle2}>{this.state.msg}です。</p>
+          )}
+        </div>
         <button style={this.btnStyle} onClick={this.doAction}>
           click
         </button>
