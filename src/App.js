@@ -19,6 +19,16 @@ class App extends Component {
     this.state = {
       list: this.data
     };
+    this.addList = this.addList.bind(this);
+  }
+
+  addList() {
+    let inputText = document.getElementById("memo");
+    this.data.push(inputText.value);
+    this.setState({
+      list: inputText.value
+    });
+    inputText.value = "";
   }
 
   render() {
@@ -27,6 +37,11 @@ class App extends Component {
         <h1>React</h1>
         <h2 style={this.msgStyle}>show list.</h2>
         <List title="サンプル・リスト" data={this.data} />
+
+        <div>
+          <input type="text" id="memo" />
+          <button onClick={this.addList}>追加</button>
+        </div>
       </div>
     );
   }
