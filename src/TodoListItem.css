@@ -1,0 +1,23 @@
+form#todoListForm {
+  background-color: aquamarine;
+  padding: 10px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+form#todoListForm > div.todoListFormInput > p {
+}
+
+form#todoListForm > div.todoListFormControl > p {
+}
+
+div.TodoListItem {
+  padding: 10px;
+  border: 1px solid red;
+  width: 50%;
+  margin: 10px auto;
+}
+
+div.TodoListItem > div.TodoListItem-title {
+  text-align: left;
+}
