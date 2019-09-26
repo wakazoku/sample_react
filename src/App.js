@@ -8,12 +8,13 @@ import TodoListItem from "./TodoListItem";
 
 class App extends Component {
   state = {
-    todoList: []
+    todoList: JSON.parse(localStorage.getItem("todoList")) || []
   };
 
   constructor(props) {
     super(props);
     this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
   }
 
   number = 1;
@@ -36,8 +37,20 @@ class App extends Component {
         })
       },
       () => {
+        localStorage.setItem("todoList", JSON.stringify(this.state.todoList));
+
         titleElements.value = "";
         descriptionElements.value = "";
+      }
+    );
+  }
+
+  removeTodo(item) {
+    this.setState(
+      { todoList: this.state.todoList.filter(x => x !== item) },
+      () => {
+        localStorage.setItem("todoList", JSON.stringify(this.state.todoList));
+        console.log(this.state.todoList);
       }
     );
   }
@@ -71,6 +84,7 @@ class App extends Component {
                 number={todo.number}
                 title={todo.title}
                 description={todo.description}
+                onClick={() => this.removeTodo(todo)}
               />
             ))}
           </div>
