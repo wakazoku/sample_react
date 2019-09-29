@@ -1,55 +1,65 @@
 import React, { Component } from "react";
 import "./App.css";
 
-let data = {
-  title: "Title",
-  message: "this is sample message."
+let theme = {
+  light: {
+    backgroundColor: "#eef",
+    color: "#006",
+    padding: "10px"
+  },
+  dark: {
+    backgroundColor: "#006",
+    color: "#eef",
+    padding: "10px"
+  }
 };
 
-const SampleContext = React.createContext(data);
+const ThemeContext = React.createContext(theme);
 
 export default class App extends Component {
-  newdata = {
-    title: "新しいタイトル",
-    message: "これは新しいメッセージです。"
-  };
+  static contextType = ThemeContext;
 
   render() {
     return (
-      <div className="App">
-        <h1>Context</h1>
-        <Title />
-        <Message />
-        <SampleContext.Provider value={this.newdata}>
-          <Title />
-          <Message />
-        </SampleContext.Provider>
-        <Title />
-        <Message />
+      <div>
+        <ThemeContext.Provider value={theme.light}>
+          <div style={this.context}>
+            <Title value="Content page" />
+            <Message value="This is Content Sample" />
+            <Message value="※これはテーマのサンプルです。" />
+          </div>
+        </ThemeContext.Provider>
+        <ThemeContext.Provider value={theme.dark}>
+          <div style={this.context}>
+            <Title value="Content page" />
+            <Message value="This is Content Sample" />
+            <Message value="※これはテーマのサンプルです。" />
+          </div>
+        </ThemeContext.Provider>
       </div>
     );
   }
 }
 
 class Title extends Component {
-  static contextType = SampleContext;
+  static contextType = ThemeContext;
 
   render() {
     return (
-      <div>
-        <h2>{this.context.title}</h2>
+      <div style={this.context}>
+        <h2>{this.props.value}</h2>
       </div>
     );
   }
 }
 
 class Message extends Component {
-  static contextType = SampleContext;
+  static contextType = ThemeContext;
 
   render() {
     return (
-      <div>
-        <h2>{this.context.message}</h2>
+      <div style={this.context}>
+        <p>{this.props.value}</p>
       </div>
     );
   }
